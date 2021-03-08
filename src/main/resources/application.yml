@@ -1,0 +1,17 @@
+config:
+  multitenant:
+    mongo:
+      enabled: true
+      properties:
+        - tenant: tenant_a
+          properties:
+            uri: "mongodb://localhost:27014/"
+            port: 27014
+            database: tenant_a_db
+        - tenant: tenant_b
+          properties:
+            uri: "mongodb://localhost:27015"
+            port: 27017
+            database: tenant_b_db
+server:
+  port: 9090
