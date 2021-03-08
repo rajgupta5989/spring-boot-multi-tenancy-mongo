@@ -32,8 +32,8 @@ public class MultiTenantMongoAutoConfiguration {
     @Bean
     @Primary
     public MongoDatabaseFactory mongoDatabaseFactory(final MultiTenantMongoConfig multiTenantMongoConfig) {
-        final MultiTenantMongoConfig.TenantMongoClient dtMongoClient = multiTenantMongoConfig.getMultiTenantConfig().firstEntry().getValue();
-        return new MultiTenantMongoDbFactory(multiTenantMongoConfig, dtMongoClient);
+        final MultiTenantMongoConfig.TenantMongoClient tenantMongoClient = multiTenantMongoConfig.getMultiTenantConfig().firstEntry().getValue();
+        return new MultiTenantMongoDbFactory(multiTenantMongoConfig, tenantMongoClient);
     }
 
     @Bean

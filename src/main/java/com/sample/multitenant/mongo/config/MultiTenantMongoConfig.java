@@ -49,8 +49,8 @@ public class MultiTenantMongoConfig {
                 throw new RuntimeException("At-least one of the config properties is required [uri | host & port]");
             }
             final String database = multiTenant.getProperties().getDatabase();
-            final TenantMongoClient dtMongoClient = new TenantMongoClient(client, database);
-            this.multiTenantConfig.put(multiTenant.getTenant(), dtMongoClient);
+            final TenantMongoClient tenantMongoClient = new TenantMongoClient(client, database);
+            this.multiTenantConfig.put(multiTenant.getTenant(), tenantMongoClient);
         }
     }
 
