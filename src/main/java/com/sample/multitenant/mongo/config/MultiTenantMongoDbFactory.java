@@ -15,7 +15,7 @@ public class MultiTenantMongoDbFactory extends SimpleMongoClientDatabaseFactory 
     public static final String DEFAULT_DB_INSTACE = "test";
     private final MultiTenantMongoConfig multiTenantMongoConfig;
 
-    public MultiTenantMongoDbFactory(final MultiTenantMongoConfig multiTenantMongoConfig, final MultiTenantMongoConfig.CustomMongoClient dtMongoClient) {
+    public MultiTenantMongoDbFactory(final MultiTenantMongoConfig multiTenantMongoConfig, final MultiTenantMongoConfig.TenantMongoClient dtMongoClient) {
         super(dtMongoClient.getMongoClient(), dtMongoClient.getDatabase());
         this.multiTenantMongoConfig = multiTenantMongoConfig;
     }
@@ -25,7 +25,7 @@ public class MultiTenantMongoDbFactory extends SimpleMongoClientDatabaseFactory 
         final String tenant = TenantContext.getTenantId();
         MongoDatabase database = null;
         if (tenant != null) {
-            final MultiTenantMongoConfig.CustomMongoClient dtMongoClient = multiTenantMongoConfig.getMultiTenantConfig().get(tenant);
+            final MultiTenantMongoConfig.TenantMongoClient dtMongoClient = multiTenantMongoConfig.getMultiTenantConfig().get(tenant);
             if (dtMongoClient == null) {
                 throw new TenantNotFoundException("Tenant " + tenant + " is not configured");
             }

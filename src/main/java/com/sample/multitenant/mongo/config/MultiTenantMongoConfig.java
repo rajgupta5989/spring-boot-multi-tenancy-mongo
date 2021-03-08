@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,12 +21,12 @@ public class MultiTenantMongoConfig {
     @Getter
     @AllArgsConstructor
     @ToString
-    public static class CustomMongoClient {
+    public static class TenantMongoClient {
         private MongoClient mongoClient;
         private String database;
     }
 
-    private TreeMap<String, CustomMongoClient> multiTenantConfig;
+    private TreeMap<String, TenantMongoClient> multiTenantConfig;
     private final MultiTenantMongoProperties multiTenantMongoProperties;
 
     @PostConstruct
@@ -50,12 +49,12 @@ public class MultiTenantMongoConfig {
                 throw new RuntimeException("At-least one of the config properties is required [uri | host & port]");
             }
             final String database = multiTenant.getProperties().getDatabase();
-            final CustomMongoClient dtMongoClient = new CustomMongoClient(client, database);
+            final TenantMongoClient dtMongoClient = new TenantMongoClient(client, database);
             this.multiTenantConfig.put(multiTenant.getTenant(), dtMongoClient);
         }
     }
 
-    public TreeMap<String, CustomMongoClient> getMultiTenantConfig() {
+    public TreeMap<String, TenantMongoClient> getMultiTenantConfig() {
         return multiTenantConfig;
     }
 
